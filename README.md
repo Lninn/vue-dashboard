@@ -31,6 +31,7 @@ yarn run test:unit
 ```
 
 ### Customize configuration
+
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## User Router
@@ -38,3 +39,25 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## /user/login
 
 ## /user/register
+
+## Dashboard Router
+
+## /dashboard/analysis
+
+## /dashboard/monitor
+
+## /dashboard/workplace
+
+## Forms
+
+## /form/basic-form
+
+## /form/step-form
+
++ /form/step-form/step1
+
++ /form/step-form/step2
+
++ /form/step-form/step3
+
+## /form/advanced-form
