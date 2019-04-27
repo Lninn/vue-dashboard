@@ -9,9 +9,57 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/user',
+      name: 'user',
+      component: () =>
+        import(/* webpackChunkName: "layout" */ './layouts/UserLayout'),
+      children: [
+        {
+          path: '/user',
+          redirect: '/user/login',
+        },
+        {
+          path: '/user/login',
+          name: 'login',
+          component: () =>
+            import(/* webpackChunkName: "user" */ './views/User/Login'),
+        },
+        {
+          path: '/user/register',
+          name: 'register',
+          component: () =>
+            import(/* webpackChunkName: "user" */ './views/User/Register'),
+        },
+      ],
+    },
+    {
       path: '/',
-      name: 'home',
+      name: 'dashboard',
       component: Home,
+      children: [
+        {
+          path: '/',
+          redirect: '/dashboard/analysis',
+        },
+        {
+          path: '/dashboard/analysis',
+          name: 'analysis',
+          component: () =>
+            import(/* webpackChunkName: "dashboard" */ './views/User/Register'),
+        },
+        {
+          path: '/dashboard/monitor',
+          name: 'monitor',
+          component: () =>
+            import(/* webpackChunkName: "dashboard" */ './views/User/Register'),
+        },
+        {
+          path: '/dashboard/worker',
+          name: 'worker',
+          component: () =>
+            import(/* webpackChunkName: "dashboard" */ './views/User/Register'),
+        },
+      ],
     },
     {
       path: '/about',

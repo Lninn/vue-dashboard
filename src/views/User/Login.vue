@@ -1,5 +1,7 @@
 <template>
-  <div class="home"></div>
+  <div>
+    登录页
+  </div>
 </template>
 
 <script>
