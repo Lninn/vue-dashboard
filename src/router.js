@@ -153,8 +153,11 @@ const router = new Router({
   ],
 })
 
-router.beforeEach((to, form, next) => {
-  NProgress.start()
+router.beforeEach((to, from, next) => {
+  if (to.path !== from.path) {
+    NProgress.start()
+  }
+
   next()
 })
 
