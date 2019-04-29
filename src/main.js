@@ -11,6 +11,11 @@ Vue.use(Drawer)
 Vue.use(Radio)
 Vue.use(Menu)
 
+import Authorized from './components/Authorized'
+Vue.component('Authorized', Authorized)
+import Auth from './directives/auth'
+Vue.use(Auth)
+
 Vue.config.productionTip = false
 
 new Vue({
