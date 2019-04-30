@@ -43,7 +43,9 @@
         <a-button
           v-if="activeTabKey === '2'"
           style="margin-left: 30px;font-size: 16px"
-          >获取验证码</a-button
+          :disabled="captchaBtn"
+          @click.stop="getCaptcha"
+          >{{ captchaBtn ? captchaBtnText + ' 秒' : captchaBtnText }}</a-button
         >
       </a-form-item>
       <a-form-item>
@@ -77,6 +79,8 @@ export default {
   data() {
     return {
       activeTabKey: '1',
+      captchaBtn: false,
+      captchaBtnText: '获取验证码',
     }
   },
   beforeCreate() {
@@ -85,6 +89,18 @@ export default {
   methods: {
     handleTabChange(key) {
       this.activeTabKey = key
+    },
+    getCaptcha() {
+      this.captchaBtn = true
+      this.captchaBtnText = 120
+      this.captchaTimer = setInterval(() => {
+        this.captchaBtnText -= 1
+        if (parseInt(this.captchaBtnText) <= 0) {
+          this.captchaBtn = false
+          this.captchaBtnText = '获取验证码'
+          clearInterval(this.captchaTimer)
+        }
+      }, 1000)
     },
     handleSubmit(e) {
       e.preventDefault()
