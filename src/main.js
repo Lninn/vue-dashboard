@@ -3,13 +3,30 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import { Button, Layout, Icon, Drawer, Radio, Menu } from 'ant-design-vue'
+import {
+  Button,
+  Layout,
+  Icon,
+  Drawer,
+  Radio,
+  Menu,
+  Dropdown,
+  Tabs,
+  Form,
+  Input,
+  Checkbox,
+} from 'ant-design-vue'
 Vue.use(Button)
 Vue.use(Layout)
 Vue.use(Icon)
 Vue.use(Drawer)
 Vue.use(Radio)
 Vue.use(Menu)
+Vue.use(Dropdown)
+Vue.use(Tabs)
+Vue.use(Form)
+Vue.use(Input)
+Vue.use(Checkbox)
 
 import Authorized from './components/Authorized'
 Vue.component('Authorized', Authorized)
