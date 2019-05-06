@@ -10,10 +10,18 @@
           v-decorator="[
             'userName',
             {
-              rules: [{ required: true, message: '请输入你的用户名' }],
+              rules: [
+                {
+                  required: true,
+                  message: '请输入你的用户名',
+                  validator: validateToUserInfo,
+                },
+              ],
+              validateTrigger: 'blur',
+              validateFirst: true,
             },
           ]"
-          :placeholder="activeTabKey === '1' ? '用户名' : '手机号'"
+          :placeholder="activeTabKey === '1' ? '用户名/邮箱' : '手机号'"
         >
           <a-icon
             slot="prefix"
@@ -75,6 +83,8 @@
 </template>
 
 <script>
+import { emailRe, phoneRe } from '../../utils'
+
 export default {
   data() {
     return {
@@ -101,6 +111,32 @@ export default {
           clearInterval(this.captchaTimer)
         }
       }, 1000)
+    },
+    validateToUserInfo(rule, value, callback) {
+      // 验证用户账户的合法性
+
+      if (value.toString().indexOf('@') > 0) {
+        // 邮箱
+        if (emailRe.test(value)) {
+          callback()
+        } else {
+          callback('请输入合法的邮箱')
+        }
+      } else if (value.length === 11) {
+        // 手机
+        if (phoneRe.test(value)) {
+          callback()
+        } else {
+          callback('请输入合法的手机号码')
+        }
+      } else {
+        // 用户名
+        if (value.length < 6 || value.length > 12) {
+          callback('请输入合法的用户名')
+        } else {
+          callback()
+        }
+      }
     },
     handleSubmit(e) {
       e.preventDefault()
