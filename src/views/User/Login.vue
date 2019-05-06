@@ -74,9 +74,7 @@
         <a-button type="primary" html-type="submit" class="login-form-button">
           登陆
         </a-button>
-        <a href="">
-          马上去注册
-        </a>
+        <router-link to="/user/register">马上去注册</router-link>
       </a-form-item>
     </a-form>
   </div>
@@ -140,8 +138,10 @@ export default {
     },
     handleSubmit(e) {
       e.preventDefault()
+
       this.form.validateFields((err, values) => {
         if (!err) {
+          delete values['remember']
           console.log('Received values of form: ', values)
         }
       })
