@@ -36,7 +36,7 @@
       <a-form-item>
         <a-input
           v-decorator="[
-            'password',
+            'password2',
             {
               rules: [{ required: true, message: '请输入你的密码' }],
             },
@@ -72,7 +72,73 @@
 </template>
 
 <script>
-export default {}
+import { emailRe, phoneRe } from '../../utils'
+
+export default {
+  data() {
+    return {
+      activeTabKey: '1',
+      captchaBtn: false,
+      captchaBtnText: '获取验证码',
+    }
+  },
+  beforeCreate() {
+    this.form = this.$form.createForm(this)
+  },
+  methods: {
+    handleTabChange(key) {
+      this.activeTabKey = key
+    },
+    getCaptcha() {
+      this.captchaBtn = true
+      this.captchaBtnText = 120
+      this.captchaTimer = setInterval(() => {
+        this.captchaBtnText -= 1
+        if (parseInt(this.captchaBtnText) <= 0) {
+          this.captchaBtn = false
+          this.captchaBtnText = '获取验证码'
+          clearInterval(this.captchaTimer)
+        }
+      }, 1000)
+    },
+    validateToUserInfo(rule, value, callback) {
+      // 验证用户账户的合法性
+
+      if (value.toString().indexOf('@') > 0) {
+        // 邮箱
+        if (emailRe.test(value)) {
+          callback()
+        } else {
+          callback('请输入合法的邮箱')
+        }
+      } else if (value.length === 11) {
+        // 手机
+        if (phoneRe.test(value)) {
+          callback()
+        } else {
+          callback('请输入合法的手机号码')
+        }
+      } else {
+        // 用户名
+        if (value.length < 6 || value.length > 12) {
+          callback('请输入合法的用户名')
+        } else {
+          callback()
+        }
+      }
+    },
+    handleSubmit(e) {
+      e.preventDefault()
+
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          delete values['remember']
+          console.log('Received values of form: ', values)
+        }
+      })
+    },
+  },
+}
 </script>
 
 <style lang="less">
