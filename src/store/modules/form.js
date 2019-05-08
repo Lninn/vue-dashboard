@@ -4,6 +4,10 @@ import router from '../../router'
 const state = {
   step: {
     payAccount: '',
+    receiverAccount: {
+      type: 'alipay',
+      number: '',
+    },
   },
 }
 
