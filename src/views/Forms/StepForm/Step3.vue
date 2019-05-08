@@ -1,5 +1,5 @@
 <template>
-  <div>第三步</div>
+  <div>提交成功</div>
 </template>
 
 <script>
