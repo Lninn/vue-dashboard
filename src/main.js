@@ -35,6 +35,12 @@ Vue.component('Authorized', Authorized)
 import Auth from './directives/auth'
 Vue.use(Auth)
 
+const IconFont = Icon.createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/font_1154049_w87h4oeytph.js', // 在 iconfont.cn 上生成
+})
+
+Vue.component('IconFont', IconFont)
+
 Vue.config.productionTip = false
 
 new Vue({
