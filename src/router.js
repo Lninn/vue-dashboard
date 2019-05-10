@@ -155,6 +155,27 @@ const router = new Router({
             },
           ],
         },
+        {
+          path: '/table',
+          name: 'table',
+          meta: { icon: 'table', title: '列表', authority: ['admin'] },
+          component: { render: h => h('router-view') },
+          children: [
+            {
+              path: '/table',
+              redirect: '/table/basic-table',
+            },
+            {
+              path: '/table/basic-table',
+              name: 'basicTable',
+              meta: { title: '基础列表' },
+              component: () =>
+                import(
+                  /* webpackChunkName: "table" */ './views/Table/BasicTable'
+                ),
+            },
+          ],
+        },
       ],
     },
     {
