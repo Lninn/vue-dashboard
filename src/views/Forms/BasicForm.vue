@@ -65,6 +65,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
+      // 通过 form 的 api 改变 form 的值
       this.form.setFieldsValue({ fieldA: 'hello world' })
     }, 3000)
   },
@@ -95,7 +96,7 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           console.log(values)
-          Object.assign(this, values)
+          // Object.assign(this, values)
         }
       })
     },

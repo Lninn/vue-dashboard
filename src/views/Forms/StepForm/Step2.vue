@@ -26,9 +26,7 @@
       </a-form-item>
       <a-form-item>
         <a-button type="primary" @click="handleSubmit">提交</a-button>
-        <a-button style="margin-left: 8px" type="primary" @click="onPrev"
-          >上一步</a-button
-        >
+        <a-button style="margin-left: 8px" @click="onPrev">上一步</a-button>
       </a-form-item>
     </a-form>
   </div>
