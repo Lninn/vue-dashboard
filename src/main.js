@@ -17,6 +17,8 @@ import {
   Checkbox,
   Select,
   Table,
+  Row,
+  Col,
 } from 'ant-design-vue'
 Vue.use(Button)
 Vue.use(Layout)
@@ -31,6 +33,8 @@ Vue.use(Input)
 Vue.use(Checkbox)
 Vue.use(Select)
 Vue.use(Table)
+Vue.use(Row)
+Vue.use(Col)
 
 import Authorized from './components/Authorized'
 Vue.component('Authorized', Authorized)

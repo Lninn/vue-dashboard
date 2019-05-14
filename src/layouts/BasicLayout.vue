@@ -13,7 +13,9 @@
         <SiderMenu :theme="navTheme" />
       </a-layout-sider>
       <a-layout>
-        <a-layout-header style="background: #fff; padding: 0">
+        <a-layout-header
+          style="background: #fff; padding: 0;box-shadow: 0px 1px 5px #ddd;"
+        >
           <a-icon
             v-auth="['admin']"
             class="trigger"
