@@ -24,7 +24,7 @@
           />
           <Header />
         </a-layout-header>
-        <a-layout-content style="margin: 0 16px">
+        <a-layout-content style="margin: 16px">
           <router-view></router-view>
         </a-layout-content>
         <a-layout-footer style="text-align: center">
