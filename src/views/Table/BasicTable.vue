@@ -1,90 +1,91 @@
 <template>
-  <a-table
+  <s-table
+    ref="table"
+    size="default"
     :columns="columns"
-    :rowKey="record => record.login.uuid"
-    :dataSource="data"
-    :pagination="pagination"
-    :loading="loading"
-    @change="handleTableChange"
+    :data="loadData"
+    rowKey="id"
   >
-    <template slot="name" slot-scope="name">
-      {{ name.first }} {{ name.last }}
-    </template>
-  </a-table>
+    <span slot="action">
+      <a>编辑</a>
+      <a-divider type="vertical" />
+      <a-dropdown>
+        <a class="ant-dropdown-link"> 更多 <a-icon type="down" /> </a>
+        <a-menu slot="overlay">
+          <a-menu-item>
+            <a href="javascript:;">1st menu item</a>
+          </a-menu-item>
+          <a-menu-item>
+            <a href="javascript:;">2nd menu item</a>
+          </a-menu-item>
+          <a-menu-item>
+            <a href="javascript:;">3rd menu item</a>
+          </a-menu-item>
+        </a-menu>
+      </a-dropdown>
+    </span>
+  </s-table>
 </template>
 
 <script>
-import request from '@/utils/request'
-
-const columns = [
-  {
-    title: '姓名',
-    dataIndex: 'name',
-    sorter: true,
-    width: '20%',
-    scopedSlots: { customRender: 'name' },
-  },
-  {
-    title: '性别',
-    dataIndex: 'gender',
-    filters: [
-      { text: 'Male', value: 'male' },
-      { text: 'Female', value: 'female' },
-    ],
-    width: '20%',
-  },
-  {
-    title: '电子邮箱',
-    dataIndex: 'email',
-  },
-]
+import STable from '@/components/Table/'
+import { axios } from '@/utils/request'
 
 export default {
-  mounted() {
-    this.fetch()
+  components: {
+    STable,
   },
   data() {
     return {
-      data: [],
-      pagination: {},
-      loading: false,
-      columns,
+      columns: [
+        {
+          title: '规则编号',
+          dataIndex: 'no',
+        },
+        {
+          title: '描述',
+          dataIndex: 'description',
+        },
+        {
+          title: '服务调用次数',
+          dataIndex: 'callNo',
+        },
+        {
+          title: '状态',
+          dataIndex: 'status',
+        },
+        {
+          title: '更新时间',
+          dataIndex: 'updatedAt',
+        },
+        {
+          table: '操作',
+          dataIndex: 'action',
+          scopedSlots: { customRender: 'action' },
+        },
+      ],
+      // 查询条件参数
+      queryParam: {},
+      // 加载数据方法 必须为 Promise 对象
+      loadData: parameter => {
+        return axios({
+          url: '/table/basic',
+          method: 'get',
+          params: Object.assign(parameter, this.queryParam),
+        }).then(res => {
+          return res
+        })
+      },
     }
   },
   methods: {
-    handleTableChange(pagination, filters, sorter) {
-      // console.log(pagination, filters, sorter)
-      const pager = { ...this.pagination }
-      pager.current = pagination.current
-      this.pagination = pager
-      this.fetch({
-        results: pagination.pageSize,
-        page: pagination.current,
-        sortField: sorter.field,
-        sortOrder: sorter.order,
-        ...filters,
-      })
-    },
-    fetch(params = {}) {
-      console.log('params:', params)
-      this.loading = true
-      request({
-        url: '/api/table/basic',
-        method: 'get',
-        data: {
-          results: 10,
-          ...params,
-        },
-        type: 'json',
-      }).then(data => {
-        const pagination = { ...this.pagination }
-        // Read total count from server
-        // pagination.total = data.totalCount;
-        pagination.total = 200
-        this.loading = false
-        this.data = data.results
-        this.pagination = pagination
-      })
+    edit() {
+      // axios 发送数据到后端 修改数据成功后
+      // 调用 refresh() 重新加载列表数据
+      // 这里 setTimeout 模拟发起请求的网络延迟..
+      setTimeout(() => {
+        this.$refs.table.refresh() // refresh() 不传参默认值 false 不刷新到分页第一页
+      }, 1500)
     },
   },
 }

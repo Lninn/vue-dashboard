@@ -32,10 +32,12 @@ module.exports = {
             console.log('Skipping proxy for browser request.')
             return '/index.html'
           } else if (process.env.MOCK !== 'none') {
+            // console.log('path ', req.path)
             const name = req.path
               .split('/api/')[1]
               .split('/')
               .join('_')
+            // console.log('name ', name)
             const mock = require(`./mock/${name}`)
             const result = mock(req.method)
             // console.log('result ', result, mock, req.method)

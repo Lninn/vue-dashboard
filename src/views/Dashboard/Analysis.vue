@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import request from '../../utils/request'
+import { axios } from '@/utils/request'
 import Chart from '../../components/Chart'
 
 const colors = ['#5793f3', '#d14a61', '#675bba']
@@ -447,7 +447,7 @@ export default {
   },
   methods: {
     getChartData() {
-      request({
+      axios({
         url: '/api/dashboard/chart',
         method: 'get',
         params: { ID: 12345 },

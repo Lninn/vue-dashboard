@@ -1,4 +1,4 @@
-import request from '../../utils/request'
+import { axios } from '@/utils/request'
 import router from '../../router'
 
 const state = {
@@ -22,7 +22,7 @@ const mutations = {
 
 const actions = {
   async submitStepForm({ commit }, { payload }) {
-    await request({
+    await axios({
       url: '/api/form',
       method: 'POST',
       data: payload,

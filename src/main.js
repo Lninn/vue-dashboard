@@ -19,6 +19,7 @@ import {
   Table,
   Row,
   Col,
+  Divider,
 } from 'ant-design-vue'
 Vue.use(Button)
 Vue.use(Layout)
@@ -35,6 +36,7 @@ Vue.use(Select)
 Vue.use(Table)
 Vue.use(Row)
 Vue.use(Col)
+Vue.use(Divider)
 
 import Authorized from './components/Authorized'
 Vue.component('Authorized', Authorized)
@@ -63,6 +65,17 @@ VueAMap.initAMapApiLoader({
     'AMap.PolyEditor',
     'AMap.CircleEditor',
   ],
+})
+
+import { VueAxios } from './utils/request'
+Vue.use(VueAxios)
+
+// 本地存储
+import VueStorage from 'vue-ls'
+Vue.use(VueStorage, {
+  namespace: 'pro__', // key prefix
+  name: 'ls', // name variable Vue.[ls] or this.[$ls],
+  storage: 'local', // storage name session, local, memory
 })
 
 Vue.config.productionTip = false
