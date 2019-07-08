@@ -20,6 +20,10 @@ import {
   Row,
   Col,
   Divider,
+  Card,
+  Alert,
+  Modal,
+  Badge,
 } from 'ant-design-vue'
 Vue.use(Button)
 Vue.use(Layout)
@@ -37,6 +41,10 @@ Vue.use(Table)
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Divider)
+Vue.use(Card)
+Vue.use(Alert)
+Vue.use(Modal)
+Vue.use(Badge)
 
 import Authorized from './components/Authorized'
 Vue.component('Authorized', Authorized)
