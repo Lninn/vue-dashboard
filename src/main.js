@@ -47,6 +47,24 @@ const IconFont = Icon.createFromIconfontCN({
 
 Vue.component('IconFont', IconFont)
 
+import VueAMap from 'vue-amap'
+Vue.use(VueAMap)
+
+VueAMap.initAMapApiLoader({
+  key: 'ca1ba3379644b43538076505f51700d3',
+  plugin: [
+    'Geocoder',
+    'AMap.Autocomplete',
+    'AMap.PlaceSearch',
+    'AMap.Scale',
+    'AMap.OverView',
+    'AMap.ToolBar',
+    'AMap.MapType',
+    'AMap.PolyEditor',
+    'AMap.CircleEditor',
+  ],
+})
+
 Vue.config.productionTip = false
 
 new Vue({
