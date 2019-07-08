@@ -6,7 +6,7 @@
           <div class="gutter-box gutter-map">
             <div class="amap-wrapper">
               <el-amap
-                ref="map"
+                ref="myMap"
                 vid="amapDemo"
                 :amap-manager="amapManager"
                 :center="center"
@@ -15,6 +15,15 @@
                 :events="events"
                 class="amap-demo"
               >
+                <el-amap-marker
+                  v-for="(marker, index) in markers"
+                  :position="marker.position"
+                  :events="marker.events"
+                  :visible="marker.visible"
+                  :draggable="marker.draggable"
+                  :vid="index"
+                  :key="marker.id"
+                ></el-amap-marker>
               </el-amap>
             </div>
           </div>
@@ -51,6 +60,7 @@
 <script>
 import img1 from '@/assets/img-1.jpg'
 import { AMapManager } from 'vue-amap'
+import { axios } from '@/utils/request'
 
 let amapManager = new AMapManager()
 
@@ -59,8 +69,25 @@ export default {
     return {
       img1,
       amapManager,
-      zoom: 12,
-      center: [121.59996, 31.197646],
+      markers: [
+        {
+          position: [121.5273285, 31.21515044],
+          events: {
+            click: () => {
+              alert('click marker')
+            },
+            dragend: e => {
+              console.log('---event---: dragend')
+              this.markers[0].position = [e.lnglat.lng, e.lnglat.lat]
+            },
+          },
+          visible: true,
+          draggable: false,
+          template: '<span>1</span>',
+        },
+      ],
+      zoom: 14,
+      center: [121.5273285, 31.21515044],
       events: {
         init: o => {
           console.log(o.getCenter())
@@ -73,6 +100,9 @@ export default {
         zoomchange: () => {},
         click: () => {
           alert('map clicked')
+        },
+        complete: () => {
+          // this.$refs.myMap.$amap.setFitView()
         },
       },
       plugin: [
@@ -88,6 +118,36 @@ export default {
         },
       ],
     }
+  },
+
+  mounted() {
+    axios({
+      url: '/device/list',
+      method: 'get',
+    }).then(() => {
+      // this.handleDeviceList(res)
+    })
+  },
+
+  methods: {
+    handleDeviceList(devices) {
+      devices.map(() => {
+        // let marker = {
+        //   position: [
+        //     121.5273285 + (Math.random() - 0.5) * 0.02,
+        //     31.21515044 + (Math.random() - 0.5) * 0.02,
+        //   ],
+        // }
+        let marker1 = {
+          position: [116.426314, 39.89224],
+        }
+        let marker2 = {
+          position: [120.051629, 30.404486],
+        }
+        this.markers.push(marker1)
+        this.markers.push(marker2)
+      })
+    },
   },
 }
 </script>

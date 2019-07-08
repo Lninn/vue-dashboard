@@ -58,6 +58,9 @@ const IconFont = Icon.createFromIconfontCN({
 Vue.component('IconFont', IconFont)
 
 import VueAMap from 'vue-amap'
+
+localStorage.clear()
+
 Vue.use(VueAMap)
 
 VueAMap.initAMapApiLoader({
@@ -70,7 +73,6 @@ VueAMap.initAMapApiLoader({
     'AMap.OverView',
     'AMap.ToolBar',
     'AMap.MapType',
-    'AMap.PolyEditor',
     'AMap.CircleEditor',
   ],
 })
