@@ -66,6 +66,7 @@ let amapManager = new AMapManager()
 
 export default {
   data() {
+    const that = this
     return {
       img1,
       amapManager,
@@ -89,10 +90,10 @@ export default {
       zoom: 14,
       center: [121.5273285, 31.21515044],
       events: {
-        init: o => {
-          console.log(o.getCenter())
-          console.log(this.$refs.map.$$getInstance())
-          o.getCity(result => {
+        init: function(e) {
+          console.log(e.getCenter())
+          // console.log(that.$refs.myMap.$$getInstance())
+          e.getCity(result => {
             console.log(result)
           })
         },
@@ -101,8 +102,8 @@ export default {
         click: () => {
           alert('map clicked')
         },
-        complete: () => {
-          // this.$refs.myMap.$amap.setFitView()
+        complete: function() {
+          that.$refs.myMap.$amap.setFitView()
         },
       },
       plugin: [
@@ -124,8 +125,8 @@ export default {
     axios({
       url: '/device/list',
       method: 'get',
-    }).then(() => {
-      // this.handleDeviceList(res)
+    }).then(res => {
+      this.handleDeviceList(res)
     })
   },
 
