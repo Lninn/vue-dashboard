@@ -24,6 +24,11 @@ import {
   Alert,
   Modal,
   Badge,
+  Spin,
+  InputNumber,
+  DatePicker,
+  Steps,
+  message,
 } from 'ant-design-vue'
 Vue.use(Button)
 Vue.use(Layout)
@@ -44,7 +49,14 @@ Vue.use(Divider)
 Vue.use(Card)
 Vue.use(Alert)
 Vue.use(Modal)
+Vue.use(Spin)
+Vue.use(InputNumber)
+Vue.use(DatePicker)
+Vue.use(Steps)
 Vue.use(Badge)
+Vue.use(message)
+
+Vue.prototype.$message = message
 
 import Authorized from './components/Authorized'
 Vue.component('Authorized', Authorized)
@@ -87,6 +99,8 @@ Vue.use(VueStorage, {
   name: 'ls', // name variable Vue.[ls] or this.[$ls],
   storage: 'local', // storage name session, local, memory
 })
+
+import './utils/directives/action'
 
 Vue.config.productionTip = false
 
