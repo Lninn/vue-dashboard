@@ -9,6 +9,117 @@ import 'nprogress/nprogress.css'
 
 Vue.use(Router)
 
+// 表单路由
+// {
+//   path: '/form',
+//   name: 'form',
+//   meta: { icon: 'form', title: '表单页', authority: ['admin'] },
+//   component: { render: h => h('router-view') },
+//   children: [
+//     {
+//       path: '/form',
+//       redirect: '/form/basic-form',
+//     },
+//     {
+//       path: '/form/basic-form',
+//       name: 'basicForm',
+//       meta: { title: '基础表单' },
+//       component: () =>
+//         import(
+//           /* webpackChunkName: "form" */ './views/Forms/BasicForm'
+//         ),
+//     },
+//     {
+//       path: '/form/step-form',
+//       name: 'stepForm',
+//       meta: { title: '分步表单' },
+//       hideMenuChildren: true,
+//       component: () =>
+//         import(/* webpackChunkName: "form" */ './views/Forms/StepForm'),
+//       children: [
+//         {
+//           path: '/form/step-form',
+//           redirect: '/form/step-form/info',
+//         },
+//         {
+//           path: '/form/step-form/info',
+//           name: 'info',
+//           component: () =>
+//             import(
+//               /* webpackChunkName: "form" */ './views/Forms/StepForm/Step1'
+//             ),
+//         },
+//         {
+//           path: '/form/step-form/confirm',
+//           name: 'confirm',
+//           component: () =>
+//             import(
+//               /* webpackChunkName: "form" */ './views/Forms/StepForm/Step2'
+//             ),
+//         },
+//         {
+//           path: '/form/step-form/result',
+//           name: 'result',
+//           component: () =>
+//             import(
+//               /* webpackChunkName: "form" */ './views/Forms/StepForm/Step3'
+//             ),
+//         },
+//       ],
+//     },
+//     {
+//       path: '/form/advanced-form',
+//       name: 'advancedForm',
+//       meta: { title: '高级表单' },
+//       component: () =>
+//         import(
+//           /* webpackChunkName: "form" */ './views/Forms/AdvancedForm'
+//         ),
+//     },
+//   ],
+// },
+
+// 仪表盘
+// {
+//   path: '/dashboard',
+//   name: 'dashboard',
+//   meta: { icon: 'dashboard', title: '仪表盘' },
+//   component: { render: h => h('router-view') },
+//   children: [
+//     {
+//       path: '/dashboard',
+//       redirect: '/dashboard/analysis',
+//     },
+//     {
+//       path: '/dashboard/analysis',
+//       name: 'analysis',
+//       meta: { title: '分析页' },
+//       component: () =>
+//         import(
+//           /* webpackChunkName: "dashboard" */ './views/Dashboard/Analysis'
+//         ),
+//     },
+//     {
+//       path: '/dashboard/monitor',
+//       name: 'monitor',
+//       meta: { title: '监控页' },
+//       component: () =>
+//         import(
+//           /* webpackChunkName: "dashboard" */ './views/Dashboard/Monitor'
+//         ),
+//     },
+//     {
+//       path: '/dashboard/workplace',
+//       name: 'workplace',
+//       meta: { title: '工作台' },
+//       component: () =>
+//         import(
+//           /* webpackChunkName: "dashboard" */ './views/Dashboard/Workplace'
+//         ),
+//     },
+//   ],
+// },
+
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -46,119 +157,36 @@ const router = new Router({
       children: [
         {
           path: '/',
-          redirect: '/dashboard/analysis',
+          redirect: '/home',
         },
         {
-          path: '/dashboard',
-          name: 'dashboard',
-          meta: { icon: 'dashboard', title: '仪表盘' },
-          component: { render: h => h('router-view') },
-          children: [
-            {
-              path: '/dashboard',
-              redirect: '/dashboard/analysis',
-            },
-            {
-              path: '/dashboard/analysis',
-              name: 'analysis',
-              meta: { title: '分析页' },
-              component: () =>
-                import(
-                  /* webpackChunkName: "dashboard" */ './views/Dashboard/Analysis'
-                ),
-            },
-            {
-              path: '/dashboard/monitor',
-              name: 'monitor',
-              meta: { title: '监控页' },
-              component: () =>
-                import(
-                  /* webpackChunkName: "dashboard" */ './views/Dashboard/Monitor'
-                ),
-            },
-            {
-              path: '/dashboard/workplace',
-              name: 'workplace',
-              meta: { title: '工作台' },
-              component: () =>
-                import(
-                  /* webpackChunkName: "dashboard" */ './views/Dashboard/Workplace'
-                ),
-            },
-          ],
+          path: '/home',
+          name: 'home',
+          meta: { icon: 'home', title: '首页', authority: ['admin'] },
+          component: () =>
+            import(
+              /* webpackChunkName: "dashboard" */ './views/Dashboard/Monitor'
+            ),
         },
         {
-          path: '/form',
-          name: 'form',
-          meta: { icon: 'form', title: '表单页', authority: ['admin'] },
-          component: { render: h => h('router-view') },
-          children: [
-            {
-              path: '/form',
-              redirect: '/form/basic-form',
-            },
-            {
-              path: '/form/basic-form',
-              name: 'basicForm',
-              meta: { title: '基础表单' },
-              component: () =>
-                import(
-                  /* webpackChunkName: "form" */ './views/Forms/BasicForm'
-                ),
-            },
-            {
-              path: '/form/step-form',
-              name: 'stepForm',
-              meta: { title: '分步表单' },
-              hideMenuChildren: true,
-              component: () =>
-                import(/* webpackChunkName: "form" */ './views/Forms/StepForm'),
-              children: [
-                {
-                  path: '/form/step-form',
-                  redirect: '/form/step-form/info',
-                },
-                {
-                  path: '/form/step-form/info',
-                  name: 'info',
-                  component: () =>
-                    import(
-                      /* webpackChunkName: "form" */ './views/Forms/StepForm/Step1'
-                    ),
-                },
-                {
-                  path: '/form/step-form/confirm',
-                  name: 'confirm',
-                  component: () =>
-                    import(
-                      /* webpackChunkName: "form" */ './views/Forms/StepForm/Step2'
-                    ),
-                },
-                {
-                  path: '/form/step-form/result',
-                  name: 'result',
-                  component: () =>
-                    import(
-                      /* webpackChunkName: "form" */ './views/Forms/StepForm/Step3'
-                    ),
-                },
-              ],
-            },
-            {
-              path: '/form/advanced-form',
-              name: 'advancedForm',
-              meta: { title: '高级表单' },
-              component: () =>
-                import(
-                  /* webpackChunkName: "form" */ './views/Forms/AdvancedForm'
-                ),
-            },
-          ],
+          path: '/table/monitor',
+          name: 'monitor',
+          meta: { icon: 'dashboard', title: '监测点', authority: ['admin'] },
+          component: () =>
+            import(/* webpackChunkName: "table" */ './views/Table/BasicTable'),
         },
+        {
+          path: '/table/maintain',
+          name: 'maintain',
+          meta: { icon: 'database', title: '巡查管理', authority: ['admin'] },
+          component: () =>
+            import(/* webpackChunkName: "table" */ './views/Table/BasicTable'),
+        },
+
         {
           path: '/table',
           name: 'table',
-          meta: { icon: 'table', title: '列表', authority: ['admin'] },
+          meta: { icon: 'table', title: '数据服务', authority: ['admin'] },
           component: { render: h => h('router-view') },
           children: [
             {
@@ -168,7 +196,7 @@ const router = new Router({
             {
               path: '/table/basic-table',
               name: 'basicTable',
-              meta: { title: '基础列表' },
+              meta: { title: '数据统计' },
               component: () =>
                 import(
                   /* webpackChunkName: "table" */ './views/Table/BasicTable'
