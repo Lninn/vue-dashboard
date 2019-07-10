@@ -29,6 +29,7 @@ import {
   DatePicker,
   Steps,
   message,
+  notification,
 } from 'ant-design-vue'
 Vue.use(Button)
 Vue.use(Layout)
@@ -55,8 +56,10 @@ Vue.use(DatePicker)
 Vue.use(Steps)
 Vue.use(Badge)
 Vue.use(message)
+Vue.use(notification)
 
 Vue.prototype.$message = message
+Vue.prototype.$notification = notification
 
 import Authorized from './components/Authorized'
 Vue.component('Authorized', Authorized)

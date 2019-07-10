@@ -11,9 +11,7 @@
         <a-menu-item key="0">
           <div style="display: inline-block;">
             <a-icon type="user" style="min-width: 12px; margin-right: 8px;" />
-            <a href="/dashboard/analysis" style="color: rgba(0, 0, 0, 0.65);"
-              >个人中心</a
-            >
+            <a @click="noFunc" style="color: rgba(0, 0, 0, 0.65);">个人中心</a>
           </div>
         </a-menu-item>
         <a-menu-item key="1">
@@ -22,9 +20,7 @@
               type="setting"
               style="min-width: 12px; margin-right: 8px;"
             />
-            <a href="/dashboard/analysis" style="color: rgba(0, 0, 0, 0.65);"
-              >个人设置</a
-            >
+            <a @click="noFunc" style="color: rgba(0, 0, 0, 0.65);">个人设置</a>
           </div>
         </a-menu-item>
         <a-menu-divider />
@@ -42,7 +38,20 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    noFunc() {
+      this.$notification.open({
+        message: '提示',
+        description: '功能暂未开发，请联系管理员',
+        placement: 'bottomRight',
+        onClick: () => {
+          console.log('Notification Clicked!')
+        },
+      })
+    },
+  },
+}
 </script>
 
 <style lang="less" scoped>
