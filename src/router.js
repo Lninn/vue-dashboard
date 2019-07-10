@@ -169,11 +169,11 @@ const router = new Router({
             ),
         },
         {
-          path: '/table/monitor',
+          path: '/monitor',
           name: 'monitor',
           meta: { icon: 'dashboard', title: '监测点', authority: ['admin'] },
           component: () =>
-            import(/* webpackChunkName: "table" */ './views/Table/BasicTable'),
+            import(/* webpackChunkName: "table" */ './views/MonitorList'),
         },
         {
           path: '/table/maintain',
