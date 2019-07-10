@@ -9,7 +9,7 @@
         v-model="collapsed"
         width="256px"
       >
-        <div class="logo">Ant Design</div>
+        <div class="logo">{{ collapsed ? '' : '智能监测云平台' }}</div>
         <SiderMenu :theme="navTheme" />
       </a-layout-sider>
       <a-layout>
