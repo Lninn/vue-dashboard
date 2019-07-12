@@ -61,6 +61,7 @@
 import img1 from '@/assets/img-1.jpg'
 import { AMapManager } from 'vue-amap'
 // import { axios } from '@/utils/request'
+import { mapActions } from 'vuex'
 
 let amapManager = new AMapManager()
 
@@ -74,8 +75,8 @@ export default {
         {
           position: [121.5273285, 31.21515044],
           events: {
-            click: () => {
-              alert('click marker')
+            click: e => {
+              console.log('click marker ', e)
             },
             dragend: e => {
               console.log('---event---: dragend')
@@ -118,35 +119,56 @@ export default {
           },
         },
       ],
+      // 界面展示数据
+      deviceDetail: {
+        deviceId: '',
+        deviceName: '',
+        location: '',
+        management: '',
+        ph: '',
+        zs: '0',
+        nhn: '0',
+        rdo: '',
+        cod: '',
+        temp: '',
+        picName: '',
+      },
     }
   },
 
   mounted() {
-    // axios({
-    //   url: '/device/list',
-    //   method: 'get',
-    // }).then(res => {
-    //   this.handleDeviceList(res)
-    // })
+    this.GetDeviceGpsList().then(res => {
+      this.handleDeviceList(res)
+    })
   },
 
   methods: {
+    ...mapActions('app', ['GetDeviceGpsList', 'GetDeviceDetail']),
+
     handleDeviceList(devices) {
-      devices.map(() => {
-        // let marker = {
-        //   position: [
-        //     121.5273285 + (Math.random() - 0.5) * 0.02,
-        //     31.21515044 + (Math.random() - 0.5) * 0.02,
-        //   ],
-        // }
-        let marker1 = {
-          position: [116.426314, 39.89224],
+      const that = this
+      const ms = devices.map(item => {
+        let m = {
+          position: [item.longitude, item.latitude],
+          events: {
+            click() {
+              that.handleMapMarkerClick(item.deviceId)
+            },
+          },
+          visible: true,
+          draggable: false,
+          id: item.deviceId,
         }
-        let marker2 = {
-          position: [120.051629, 30.404486],
-        }
-        this.markers.push(marker1)
-        this.markers.push(marker2)
+        return m
+      })
+      this.markers = ms
+    },
+
+    handleMapMarkerClick(deviceId) {
+      // console.log('deviceId ', deviceId)
+      this.GetDeviceDetail(deviceId).then(data => {
+        console.log('handleMapMarkerClick ', data)
+        this.deviceDetail = data
       })
     },
   },

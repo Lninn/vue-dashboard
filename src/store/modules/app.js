@@ -4,6 +4,8 @@ import {
   login,
   queryUserInfoByUsername,
   queryInspectDataList,
+  queryDeviceGpsList,
+  queryDeviceDetail,
 } from '@/services'
 import {
   ACCESS_TOKEN,
@@ -120,6 +122,14 @@ const actions = {
         { no: '' }
       )
     })
+  },
+
+  GetDeviceGpsList() {
+    return queryDeviceGpsList({ userId: state.user.id })
+  },
+
+  GetDeviceDetail({ state }, deviceId) {
+    return queryDeviceDetail({ userId: state.user.id, deviceId })
   },
 }
 

@@ -19,6 +19,8 @@ const API = {
   dataCollectList: '/pustone/waterSensorList',
   deviceSelectList: '/pustone/deviceLite',
   inspectList: '/pustone/waterReport',
+  deviceGpsList: '/pustone/showGPS',
+  deviceDetail: '/pustone/indexDevice',
 }
 
 export function login(parameter) {
@@ -44,5 +46,20 @@ export function queryDeviceSelectList(params) {
 
 export function queryInspectDataList(params) {
   const url = addParams(API.inspectList, params)
+  return get(url)
+}
+
+export function queryInspectList(params) {
+  const url = addParams(API.inspectList, params)
+  return get(url)
+}
+
+export function queryDeviceGpsList(params) {
+  const url = addParams(API.deviceGpsList, params)
+  return get(url)
+}
+
+export function queryDeviceDetail(params) {
+  const url = addParams(API.deviceDetail, params)
   return get(url)
 }
