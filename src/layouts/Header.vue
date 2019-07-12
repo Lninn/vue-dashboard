@@ -27,7 +27,10 @@
         <a-menu-item key="3">
           <div style="display: inline-block;">
             <a-icon type="logout" style="min-width: 12px; margin-right: 8px;" />
-            <a href="/user/login" style="color: rgba(0, 0, 0, 0.65);"
+            <a
+              href="javascript:;"
+              @click="handleLogout"
+              style="color: rgba(0, 0, 0, 0.65);"
               >退出登陆</a
             >
           </div>
@@ -38,8 +41,12 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   methods: {
+    ...mapActions('app', ['Logout']),
+
     noFunc() {
       this.$notification.open({
         message: '提示',
@@ -48,6 +55,29 @@ export default {
         onClick: () => {
           console.log('Notification Clicked!')
         },
+      })
+    },
+
+    handleLogout() {
+      const that = this
+
+      this.$confirm({
+        title: '提示',
+        content: '真的要注销登录吗 ?',
+        onOk() {
+          return that
+            .Logout({})
+            .then(() => {
+              window.location.reload()
+            })
+            .catch(err => {
+              that.$message.error({
+                title: '错误',
+                description: err.message,
+              })
+            })
+        },
+        onCancel() {},
       })
     },
   },

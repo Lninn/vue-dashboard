@@ -2,6 +2,7 @@ import {
   queryDeviceSelectList,
   queryDataCollectList,
   login,
+  logout,
   queryUserInfoByUsername,
   queryInspectDataList,
   queryDeviceGpsList,
@@ -81,6 +82,24 @@ const actions = {
           })
         })
         .catch(err => reject(err))
+    })
+  },
+
+  // 登出
+  Logout({ commit }) {
+    return new Promise(resolve => {
+      commit(SET_TOKEN, '')
+      Vue.ls.remove(ACCESS_TOKEN)
+
+      const data = JSON.parse(Vue.ls.get(USER_INFO) || '{}') || {}
+
+      logout(data.userId || '')
+        .then(() => {
+          resolve()
+        })
+        .catch(() => {
+          resolve()
+        })
     })
   },
 

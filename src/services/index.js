@@ -21,6 +21,7 @@ const API = {
   inspectList: '/pustone/waterReport',
   deviceGpsList: '/pustone/showGPS',
   deviceDetail: '/pustone/indexDevice',
+  logout: '/logout',
 }
 
 export function login(parameter) {
@@ -62,4 +63,8 @@ export function queryDeviceGpsList(params) {
 export function queryDeviceDetail(params) {
   const url = addParams(API.deviceDetail, params)
   return get(url)
+}
+
+export function logout(userId) {
+  return post(API.logout, { userId })
 }

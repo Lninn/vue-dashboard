@@ -60,6 +60,7 @@ Vue.use(notification)
 
 Vue.prototype.$message = message
 Vue.prototype.$notification = notification
+Vue.prototype.$confirm = Modal.confirm
 
 import Authorized from './components/Authorized'
 Vue.component('Authorized', Authorized)
@@ -82,7 +83,7 @@ Vue.use(VueStorage, {
 
 import VueAMap from 'vue-amap'
 
-// localStorage.clear()
+localStorage.removeItem('_AMap_raster')
 
 Vue.use(VueAMap)
 
