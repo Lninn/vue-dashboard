@@ -60,7 +60,7 @@
 <script>
 import img1 from '@/assets/img-1.jpg'
 import { AMapManager } from 'vue-amap'
-import { axios } from '@/utils/request'
+// import { axios } from '@/utils/request'
 
 let amapManager = new AMapManager()
 
@@ -122,12 +122,12 @@ export default {
   },
 
   mounted() {
-    axios({
-      url: '/device/list',
-      method: 'get',
-    }).then(res => {
-      this.handleDeviceList(res)
-    })
+    // axios({
+    //   url: '/device/list',
+    //   method: 'get',
+    // }).then(res => {
+    //   this.handleDeviceList(res)
+    // })
   },
 
   methods: {

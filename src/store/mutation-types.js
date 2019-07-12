@@ -1,1 +1,6 @@
 export const ACCESS_TOKEN = 'Access-Token'
+export const SET_TOKEN = 'SET_TOKEN'
+export const USER_INFO = 'USER-INFO'
+export const USER_ID = 'SET-USERID'
+export const USER_NAME = 'SET-USERNAME'
+export const STEP_FORMDATA = 'STEP-FORMDATA'

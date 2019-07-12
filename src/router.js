@@ -139,13 +139,13 @@ const router = new Router({
           path: '/user/login',
           name: 'login',
           component: () =>
-            import(/* webpackChunkName: "user" */ './views/User/Login'),
+            import(/* webpackChunkName: "user" */ './views/user/Login'),
         },
         {
           path: '/user/register',
           name: 'register',
           component: () =>
-            import(/* webpackChunkName: "user" */ './views/User/Register'),
+            import(/* webpackChunkName: "user" */ './views/user/Register'),
         },
       ],
     },
@@ -161,45 +161,45 @@ const router = new Router({
         },
         {
           path: '/home',
-          name: 'home',
+          name: 'Home',
           meta: { icon: 'home', title: '首页', authority: ['admin'] },
           component: () =>
             import(
-              /* webpackChunkName: "dashboard" */ './views/Dashboard/Monitor'
+              /* webpackChunkName: "dashboard" */ './views/dashboard/Monitor'
             ),
         },
         {
           path: '/monitor',
-          name: 'monitor',
+          name: 'Monitor',
           meta: { icon: 'dashboard', title: '监测点', authority: ['admin'] },
           component: () =>
             import(/* webpackChunkName: "table" */ './views/MonitorList'),
         },
         {
-          path: '/table/maintain',
-          name: 'maintain',
+          path: '/inspect',
+          name: 'Inspect',
           meta: { icon: 'database', title: '巡查管理', authority: ['admin'] },
           component: () =>
-            import(/* webpackChunkName: "table" */ './views/Table/BasicTable'),
+            import(/* webpackChunkName: "table" */ './views/inspect/Inspect'),
         },
 
         {
-          path: '/table',
-          name: 'table',
+          path: '/data',
+          name: 'Data',
           meta: { icon: 'table', title: '数据服务', authority: ['admin'] },
           component: { render: h => h('router-view') },
           children: [
             {
-              path: '/table',
-              redirect: '/table/basic-table',
+              path: '/data',
+              redirect: '/data/collect',
             },
             {
-              path: '/table/basic-table',
-              name: 'basicTable',
+              path: '/data/collect',
+              name: 'DataCollect',
               meta: { title: '数据统计' },
               component: () =>
                 import(
-                  /* webpackChunkName: "table" */ './views/Table/BasicTable'
+                  /* webpackChunkName: "table" */ './views/dataService/Collect'
                 ),
             },
           ],

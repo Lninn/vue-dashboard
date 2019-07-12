@@ -72,9 +72,17 @@ const IconFont = Icon.createFromIconfontCN({
 
 Vue.component('IconFont', IconFont)
 
+// 本地存储
+import VueStorage from 'vue-ls'
+Vue.use(VueStorage, {
+  namespace: 'pro__', // key prefix
+  name: 'ls', // name variable Vue.[ls] or this.[$ls],
+  storage: 'local', // storage name session, local, memory
+})
+
 import VueAMap from 'vue-amap'
 
-localStorage.clear()
+// localStorage.clear()
 
 Vue.use(VueAMap)
 
@@ -95,20 +103,19 @@ VueAMap.initAMapApiLoader({
 import { VueAxios } from './utils/request'
 Vue.use(VueAxios)
 
-// 本地存储
-import VueStorage from 'vue-ls'
-Vue.use(VueStorage, {
-  namespace: 'pro__', // key prefix
-  name: 'ls', // name variable Vue.[ls] or this.[$ls],
-  storage: 'local', // storage name session, local, memory
-})
-
 import './utils/directives/action'
+
+import bootstrap from './bootstrap'
+
+import './permission'
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
+  created() {
+    bootstrap()
+  },
   render: h => h(App),
 }).$mount('#app')

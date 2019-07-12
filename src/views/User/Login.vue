@@ -8,7 +8,7 @@
       <a-form-item>
         <a-input
           v-decorator="[
-            'userName',
+            'username',
             {
               rules: [
                 {
@@ -71,7 +71,13 @@
         <a class="login-form-forgot" href="">
           忘记密码 ?
         </a>
-        <a-button type="primary" html-type="submit" class="login-form-button">
+        <a-button
+          type="primary"
+          html-type="submit"
+          class="login-form-button"
+          :loading="state.loginBtn"
+          :disabled="state.loginBtn"
+        >
           登陆
         </a-button>
         <router-link to="/user/register">马上去注册</router-link>
@@ -82,6 +88,7 @@
 
 <script>
 import { emailRe, phoneRe } from '../../utils'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -89,12 +96,22 @@ export default {
       activeTabKey: '1',
       captchaBtn: false,
       captchaBtnText: '获取验证码',
+      customActiveKey: 'tab1',
+      state: {
+        time: 60,
+        loginBtn: false,
+        // login type: 0 email, 1 username, 2 telephone
+        loginType: 1,
+        smsSendBtn: false,
+      },
     }
   },
   beforeCreate() {
     this.form = this.$form.createForm(this)
   },
   methods: {
+    ...mapActions('app', ['Login']),
+
     handleTabChange(key) {
       this.activeTabKey = key
     },
@@ -129,7 +146,7 @@ export default {
         }
       } else {
         // 用户名
-        if (value.length < 6 || value.length > 12) {
+        if (value.length < 3 || value.length > 12) {
           callback('请输入合法的用户名')
         } else {
           callback()
@@ -138,12 +155,61 @@ export default {
     },
     handleSubmit(e) {
       e.preventDefault()
+      const {
+        form: { validateFields },
+        state,
+        customActiveKey,
+        Login,
+      } = this
 
-      this.form.validateFields((err, values) => {
+      state.loginBtn = true
+
+      const validateFieldsKey =
+        customActiveKey === 'tab1'
+          ? ['username', 'password']
+          : ['mobile', 'captcha']
+
+      console.log(validateFieldsKey)
+      validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
-          delete values['remember']
-          console.log('Received values of form: ', values)
+          console.log('login form', values)
+          const loginParams = { ...values }
+          delete loginParams.username
+          loginParams[!state.loginType ? 'email' : 'username'] = values.username
+          // 因为现在后端没有加密的操作，所以暂时不加密
+          // loginParams.password = md5(values.password)
+          Login(loginParams)
+            .then(res => this.loginSuccess(res))
+            .catch(err => this.requestFailed(err))
+            .finally(() => {
+              state.loginBtn = false
+            })
+        } else {
+          setTimeout(() => {
+            state.loginBtn = false
+          }, 600)
         }
+      })
+    },
+
+    loginSuccess() {
+      this.$router.push({ name: 'Home' })
+      // 延迟 1 秒显示欢迎信息
+      setTimeout(() => {
+        this.$notification.success({
+          message: '欢迎',
+          description: `登陆成功，欢迎回来`,
+        })
+      }, 1000)
+    },
+
+    requestFailed(err) {
+      this.$notification['error']({
+        message: '错误',
+        description:
+          ((err.response || {}).data || {}).message ||
+          '登陆信息输入错误，请重试',
+        duration: 4,
       })
     },
   },
