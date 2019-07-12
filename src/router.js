@@ -169,13 +169,6 @@ const router = new Router({
             ),
         },
         {
-          path: '/monitor',
-          name: 'Monitor',
-          meta: { icon: 'dashboard', title: '监测点', authority: ['admin'] },
-          component: () =>
-            import(/* webpackChunkName: "table" */ './views/MonitorList'),
-        },
-        {
           path: '/inspect',
           name: 'Inspect',
           meta: { icon: 'database', title: '巡查管理', authority: ['admin'] },
