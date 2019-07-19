@@ -1,4 +1,4 @@
-import { check } from '../utils/auth'
+import { check } from '../../utils/auth'
 
 function install(Vue, options = {}) {
   Vue.directive(options.name || 'auth', {

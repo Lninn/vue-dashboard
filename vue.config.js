@@ -47,7 +47,7 @@ module.exports = {
       //   },
       // },
       '/oauth': {
-        target: 'http://192.168.2.217:8081/uaa/oauth/token',
+        target: 'http://192.168.2.216:8081/uaa/oauth/token',
         changeOrigin: true,
         ws: false,
         pathRewrite: {
@@ -55,14 +55,14 @@ module.exports = {
         },
       },
       '/pustone': {
-        target: 'http://192.168.2.217:8081/service-manage-pustone',
+        target: 'http://192.168.2.216:8081/service-manage-pustone',
         changeOrigin: true,
         // pathRewrite: {
         //   '^/pustone': ''
         // }
       },
       '/service-manage-users': {
-        target: 'http://192.168.2.217:8081',
+        target: 'http://192.168.2.216:8081',
         changeOrigin: true,
         // pathRewrite: {
         //   '^/pustone': ''
